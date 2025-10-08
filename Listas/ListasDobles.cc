@@ -157,3 +157,4 @@ void LimpiarLista(NodoDoble*& cabeza) {
         delete actual;
     }
 }
+

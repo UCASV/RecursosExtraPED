@@ -124,3 +124,4 @@ void LimpiarLista(Nodo*& cabeza) {
         delete actual;
     }
 }
+
