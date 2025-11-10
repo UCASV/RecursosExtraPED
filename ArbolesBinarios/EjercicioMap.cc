@@ -42,11 +42,7 @@ void agregarProducto(map<string, Producto>& inventario) {
 }
 
 // version que usa operator[] para actualizar o crear
-void actualizarProducto(map<string, Producto>& inventario) {
-    string codigo;
-    cout << "Codigo del producto a actualizar/crear: ";
-    cin >> codigo;
-
+void actualizarProducto(map<string, Producto>& inventario, string codigo) {
     // Esto crea si no existe
     Producto& p = inventario[codigo];
 
@@ -63,11 +59,7 @@ void actualizarProducto(map<string, Producto>& inventario) {
     cout << "Producto actualizado/creado correctamente.\n";
 }
 
-void buscarProducto(const map<string, Producto>& inventario) {
-    string codigo;
-    cout << "Codigo a buscar: ";
-    cin >> codigo;
-
+void buscarProducto(const map<string, Producto>& inventario, string codigo) {
     auto it = inventario.find(codigo);
     if (it != inventario.end()) {
         const Producto& p = it->second;
@@ -82,11 +74,7 @@ void buscarProducto(const map<string, Producto>& inventario) {
     }
 }
 
-void eliminarProducto(map<string, Producto>& inventario) {
-    string codigo;
-    cout << "Codigo a eliminar: ";
-    cin >> codigo;
-
+void eliminarProducto(map<string, Producto>& inventario, string codigo) {
     auto it = inventario.find(codigo);
     if (it != inventario.end()) {
         inventario.erase(it);
@@ -111,11 +99,7 @@ void mostrarInventario(const map<string, Producto>& inventario) {
     }
 }
 
-void mostrarDesdeCodigo(const map<string, Producto>& inventario) {
-    string codigo;
-    cout << "Mostrar productos desde el codigo: ";
-    cin >> codigo;
-
+void mostrarDesdeCodigo(const map<string, Producto>& inventario, string codigo) {
     auto it = inventario.lower_bound(codigo);
     if (it == inventario.end()) {
         cout << "No hay productos con codigo mayor o igual a ese.\n";
@@ -156,14 +140,27 @@ int main() {
         cout << "0. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
+        string codigo = "";
 
         switch (opcion) {
             case 1: agregarProducto(inventario); break;
-            case 2: actualizarProducto(inventario); break;
-            case 3: buscarProducto(inventario); break;
-            case 4: eliminarProducto(inventario); break;
+            case 2: 
+                cout << "Codigo del producto a actualizar/crear: ";
+                cin >> codigo;
+                actualizarProducto(inventario, codigo); break;
+            case 3: 
+                cout << "Codigo a buscar: ";
+                cin >> codigo;
+                buscarProducto(inventario, codigo); break;
+            case 4: 
+                cout << "Codigo a eliminar: ";
+                cin >> codigo;
+                eliminarProducto(inventario, codigo); break;
             case 5: mostrarInventario(inventario); break;
-            case 6: mostrarDesdeCodigo(inventario); break;
+            case 6: 
+                cout << "Mostrar productos desde el codigo: ";
+                cin >> codigo;
+                mostrarDesdeCodigo(inventario, codigo); break;
             case 7: mostrarCantidad(inventario); break;
             case 8: limpiarInventario(inventario); break;
             case 0: cout << "Saliendo...\n"; break;

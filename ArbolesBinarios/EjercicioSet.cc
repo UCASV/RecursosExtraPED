@@ -40,11 +40,7 @@ void registrarVisitante(set<Visitante, CompVisitante>& registro) {
     }
 }
 
-void buscarVisitante(const set<Visitante, CompVisitante>& registro) {
-    string doc;
-    cout << "Documento a buscar: ";
-    cin >> doc;
-
+void buscarVisitante(const set<Visitante, CompVisitante>& registro, string doc) {
     Visitante tmp{doc, "", ""};
     auto it = registro.find(tmp);
     if (it != registro.end()) {
@@ -57,11 +53,7 @@ void buscarVisitante(const set<Visitante, CompVisitante>& registro) {
     }
 }
 
-void eliminarVisitante(set<Visitante, CompVisitante>& registro) {
-    string doc;
-    cout << "Documento a eliminar: ";
-    cin >> doc;
-
+void eliminarVisitante(set<Visitante, CompVisitante>& registro, string doc) {
     Visitante tmp{doc, "", ""};
     auto it = registro.find(tmp);
     if (it != registro.end()) {
@@ -83,11 +75,7 @@ void mostrarVisitantes(const set<Visitante, CompVisitante>& registro) {
     }
 }
 
-void mostrarDesdeDocumento(const set<Visitante, CompVisitante>& registro) {
-    string doc;
-    cout << "Mostrar visitantes desde el documento: ";
-    cin >> doc;
-
+void mostrarDesdeDocumento(const set<Visitante, CompVisitante>& registro, string doc) {
     Visitante tmp{doc, "", ""};
     auto it = registro.lower_bound(tmp);
     if (it == registro.end()) {
@@ -125,13 +113,24 @@ int main() {
         cout << "0. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
-
+        string documento = "";
+        
         switch (opcion) {
             case 1: registrarVisitante(registro); break;
-            case 2: buscarVisitante(registro); break;
-            case 3: eliminarVisitante(registro); break;
+            case 2: 
+                cout << "Documento a buscar: ";
+                cin >> documento;
+                buscarVisitante(registro, documento); break;
+            case 3:
+                cout << "Documento a eliminar: ";
+                cin >> documento;
+                eliminarVisitante(registro, documento);
+                break;
             case 4: mostrarVisitantes(registro); break;
-            case 5: mostrarDesdeDocumento(registro); break;
+            case 5:   
+                cout << "Mostrar visitantes desde el documento: ";
+                cin >> documento;
+                mostrarDesdeDocumento(registro, documento); break;
             case 6: mostrarCantidad(registro); break;
             case 7: limpiarRegistro(registro); break;
             case 0: cout << "Saliendo...\n"; break;
